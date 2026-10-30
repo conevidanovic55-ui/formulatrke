@@ -21,3 +21,10 @@
 
 .about-logo{display:block;width:190px;height:80px;object-fit:contain;filter:brightness(0) invert(1)}.about-mark:has(.about-logo){width:190px;letter-spacing:0}
 @media(max-width:700px){.about-logo{width:90px;height:52px}.about-mark:has(.about-logo){width:90px}.about-link{margin-left:110px}}
+
+/* Kartice koje koriste zastave umesto ilustracija */
+
+.card-art.slika-zastave::before,
+.card-art.slika-zastave::after {
+  display: none;
+}
