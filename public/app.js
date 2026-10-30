@@ -72,11 +72,13 @@ function render() {
 if (race.id === 'kina-2025-sport-klub-hr') {
   const slika = card.querySelector('.card-art');
 
-  slika.style.background =
-    "#de2910 url('./assets/Kina.png') center / contain no-repeat";
+  slika.classList.add('slika-zastave');
 
-  card.querySelector('.card-code').hidden = true;
-  card.querySelector('.circuit').hidden = true;
+  slika.style.background =
+    "url('./assets/Kina.png') center / cover no-repeat";
+
+  slika.querySelector('.card-code').remove();
+  slika.querySelector('.circuit').remove();
 }
 
     card.querySelector('.card-category').textContent = race.category;
