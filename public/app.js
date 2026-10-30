@@ -69,6 +69,16 @@ function render() {
     card.style.setProperty('--art-bg', track.bg); card.style.setProperty('--art-ink', track.ink);
     card.querySelector('.card-code').textContent = track.code;
     card.querySelector('.circuit path').setAttribute('d', track.path);
+if (race.id === 'kina-2025-sport-klub-hr') {
+  const slika = card.querySelector('.card-art');
+
+  slika.style.background =
+    "#de2910 url('./assets/Kina.png') center / contain no-repeat";
+
+  card.querySelector('.card-code').hidden = true;
+  card.querySelector('.circuit').hidden = true;
+}
+
     card.querySelector('.card-category').textContent = race.category;
     card.querySelector('.card-kind').textContent = race.kind;
     card.querySelector('.card-duration').textContent = race.videoUrl ? race.duration || 'SNIMAK' : 'PRIMER';
