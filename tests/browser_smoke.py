@@ -51,6 +51,21 @@ try:
         assert page.locator('.race-card').count() == 6
         assert page.locator('#load-error').is_hidden(), 'Do not display an archive error alongside loaded races'
         assert page.locator('.social-link').count() == 3
+        # Hero picture and coordinates come from the same JSON entry.
+        hero = page.locator('.hero[data-track-image]')
+        hero.wait_for(timeout=30000)
+        track_list = json.loads((ROOT / 'public/staze.json').read_text())['tracks']
+        first_image = hero.get_attribute('data-track-image')
+        first_track = next(t for t in track_list if t['image'] == first_image)
+        assert page.locator('#hero-track-name').inner_text() == first_track['name']
+        assert page.locator('#hero-track-coordinates').inner_text() == first_track['coordinates']
+        page.reload()
+        hero.wait_for(timeout=30000)
+        next_image = hero.get_attribute('data-track-image')
+        assert next_image != first_image, 'Hero track should change on consecutive loads'
+        next_track = next(t for t in track_list if t['image'] == next_image)
+        assert page.locator('#hero-track-name').inner_text() == next_track['name']
+        assert page.locator('#hero-track-coordinates').inner_text() == next_track['coordinates']
         assert page.locator('.site-header nav a').all_text_contents() == ['Početna']
         assert page.locator('.site-header .brand-logo').bounding_box()['width'] >= 320
         assert page.get_by_role('link', name='Istraži arhivu').is_visible()
