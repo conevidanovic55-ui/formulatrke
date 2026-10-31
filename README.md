@@ -47,7 +47,7 @@ Za novu stazu:
 3. Sačuvaj izmene preko **Commit changes**; GitHub Pages objavljuje novu verziju.
 4. Osveži javni sajt i proveri prikaz.
 
-Nema potrebe za dodatnim izmenama `index.html`, `styles.css` ili `app.js`. Modul `public/hero.js` zasebno učitava spisak, bira fotografiju, proverava njeno učitavanje i istovremeno prikazuje njene koordinate; oštećene/nedostupne fotografije preskače. Ako spisak ne može da se učita, ostaje rezervna hero fotografija bez izmišljenih koordinata. Prikazuje se samo jedna fotografija, ne učitava se svih 23 istovremeno.
+Nema potrebe za dodatnim izmenama `index.html`, `styles.css` ili `app.js`. Modul `public/hero.js` zasebno učitava spisak, bira fotografiju, proverava njeno učitavanje i istovremeno prikazuje njene koordinate; oštećene/nedostupne fotografije preskače. Ako spisak ne može da se učita ili nijedna fotografija nije dostupna, ostaje samo jednobojna pozadina, bez rezervne fotografije, naziva i koordinata. Početna fotografija i odgovarajući natpis pojavljuju se zajedno tek po uspešnom učitavanju. Prikazuje se samo jedna fotografija, ne učitava se svih 23 istovremeno.
 
 **Autorska prava:** pre dodavanja fotografije proveri prava za javno objavljivanje; za CC BY / CC BY-SA navedi autora, izvor i odgovarajuću licencu na sajtu. Ime datoteke ne predstavlja atribuciju.
 
@@ -97,7 +97,7 @@ Zaštita SHA verzijom sprečava prepisivanje novijih promena iz druge kartice. A
 
 Ne unosi iframe HTML kod niti linkove za preuzimanje koji zahtevaju prijavu. Snimak mora biti dostupan gledaocima. Servis može zabraniti ugrađivanje, tražiti prijavu, ograničiti region ili ukloniti video; sajt to ne zaobilazi. U plejeru postoji i link ka izvornom snimku. Spoljni iframe je sandboxovan bez iskačućih prozora i preusmeravanja glavne stranice.
 
-Javna arhiva sadrži korisnikov OK.ru snimak „VN Kine — Sport Klub Hrvatska“, sezona 2025, i tabove za 2025. i 2026. godinu. Početno je izabrana najnovija sezona koja ima video linkove. Testovi koriste zasebnu probnu arhivu sa više sezona. Dekorativne ilustracije nisu zvanične mape staza; hero slika je generisana za projekat. Sajt je nezavisna zajednica, a ne zvaničan sajt Formule 1.
+Javna arhiva sadrži korisnikov OK.ru snimak „VN Kine — Sport Klub Hrvatska“, sezona 2025, i tabove za 2025. i 2026. godinu. Početno je izabrana najnovija sezona koja ima video linkove. Testovi koriste zasebnu probnu arhivu sa više sezona. Početna prikazuje fotografije pravih staza iz `public/staze.json` bez generičke rezervne F1 slike. Sajt je nezavisna zajednica, a ne zvaničan sajt Formule 1.
 
 ## Besplatno javno objavljivanje
 

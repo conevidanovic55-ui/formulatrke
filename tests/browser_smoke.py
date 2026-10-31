@@ -66,6 +66,16 @@ try:
         next_track = next(t for t in track_list if t['image'] == next_image)
         assert page.locator('#hero-track-name').inner_text() == next_track['name']
         assert page.locator('#hero-track-coordinates').inner_text() == next_track['coordinates']
+        assert page.locator('.hero-caption').is_visible()
+        # The archive must still work if the separate hero photo catalog is unavailable.
+        fallback_page = context.new_page()
+        fallback_page.route('**/staze.json', lambda route: route.abort())
+        fallback_page.goto('http://127.0.0.1:3001/')
+        assert fallback_page.locator('.hero-caption').is_hidden()
+        assert fallback_page.locator('#hero-track-name').inner_text() == ''
+        assert fallback_page.evaluate("getComputedStyle(document.querySelector('.hero'), '::before').backgroundImage") == 'none'
+        fallback_page.locator('.race-card').first.wait_for()
+        fallback_page.close()
         assert page.locator('.site-header nav a').all_text_contents() == ['Početna']
         assert page.locator('.site-header .brand-logo').bounding_box()['width'] >= 320
         assert page.get_by_role('link', name='Istraži arhivu').is_visible()

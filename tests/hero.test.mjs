@@ -71,3 +71,17 @@ test('new circuits retain the correct photo and circuit coordinates', () => {
     assert.match(track.coordinates, /^[0-9]{1,2}°[0-9]{2}′[0-9]{2}″ [NS] · [0-9]{1,3}°[0-9]{2}′[0-9]{2}″ [EW]$/);
   }
 });
+
+test('no placeholder F1 image or label appears before the selected photo loads', async () => {
+  const html = await readFile(new URL('../public/index.html', import.meta.url), 'utf8');
+  const styles = await readFile(new URL('../public/styles.css', import.meta.url), 'utf8');
+  const hero = await readFile(new URL('../public/hero.js', import.meta.url), 'utf8');
+
+  assert.match(html, /<div class="hero-caption"[^>]*hidden>/);
+  assert.match(html, /<strong id="hero-track-name"><\/strong>/);
+  assert.match(html, /<span id="hero-track-coordinates"><\/span>/);
+  assert.ok(!styles.includes('hero.png'), 'Legacy fallback hero must not be referenced');
+  assert.ok(styles.includes('background-image:var(--hero-image,none)'));
+  assert.ok(hero.includes('trackCaption.hidden = false'));
+  await assert.rejects(stat(new URL('../public/assets/hero.png', import.meta.url)), { code: 'ENOENT' });
+});
