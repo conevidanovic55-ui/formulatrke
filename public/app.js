@@ -48,7 +48,8 @@ function renderSocials() {
     link.innerHTML = icon; $('#social-links').append(link);
   }
   const instagram = socialUrl('instagram', catalog.socials?.instagram);
-  if (instagram) $('.about-link').href = instagram;
+  const aboutLink = $('.about-link');
+  if (instagram && aboutLink) aboutLink.href = instagram;
 }
 
 function render() {
