@@ -35,6 +35,19 @@
       "duration": "",
       "videoUrl": "https://ok.ru/video/15160822663904",
       "image": "Monako.jpg"
+    },
+    {
+      "id": "monako-2026-rtl-hr",
+      "title": "Velika nagrada Monaka — RTL HR",
+      "location": "Monte Karlo",
+      "season": "2026",
+      "category": "Formula 1",
+      "kind": "Trka",
+      "round": 1,
+      "date": "2026-06-07",
+      "duration": "",
+      "videoUrl": "https://ok.ru/video/15190375467744",
+      "image": "Monako.jpg"
     }
   ]
 }
