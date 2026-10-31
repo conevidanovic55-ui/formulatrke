@@ -49,6 +49,7 @@ try:
         page.goto('http://127.0.0.1:3001/')
         page.locator('.race-card').first.wait_for()
         assert page.locator('.race-card').count() == 6
+        assert page.locator('#load-error').is_hidden(), 'Do not display an archive error alongside loaded races'
         assert page.locator('.social-link').count() == 3
         page.screenshot(path=str(OUT / 'desktop.png'), full_page=True)
         page.get_by_role('button', name='Sezona 2025').click()
