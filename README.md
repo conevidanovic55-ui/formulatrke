@@ -15,6 +15,18 @@ npm start
 
 Server koristi `public/` na portu 3000. `PORT` menja port. `npm run preview` služi `dist/`. Ne pokreći oba na istom portu. Okruženje zadatka je već izolovano; koristi postojeći checkout, bez dodatnog worktree-a osim na izričit zahtev korisnika.
 
+## Zastave umesto ilustracija
+
+Svaka trka u `public/content.json` može da ima polje `"image": "Kina.png"` ili `"image": "Monako.jpg"`. Ne koristi se više polje `art`; ilustracije izmišljenih staza i SVG putanje su uklonjene iz prikaza.
+
+1. Otvori [public/assets](https://github.com/conevidanovic55-ui/formulatrke/tree/main/public/assets), izaberi **Add file → Upload files** i ubaci zastavu sa računara. Sačuvaj sa **Commit changes**.
+2. Otvori [content.json](https://github.com/conevidanovic55-ui/formulatrke/blob/main/public/content.json). U unosu željene trke postavi naziv datoteke u polju `image`, bez prefiksa `public/assets/`.
+3. Sačuvaj izmene (**Commit changes**) i proveri GitHub Pages objavu. Pošto je putanja relativna, slike rade i na podadresi `/formulatrke/public/`.
+
+Nazivi se razlikuju po velikim/malim slovima: `Kina.png` i `kina.png` nisu isto. Podržane su PNG, JPG/JPEG, WEBP i AVIF slike. Slika se prikazuje sa `object-fit: cover`, pa popunjava celo polje kartice; ivice mogu biti blago odsečene ako odnos širine i visine slike nije isti kao odnos polja. Bez slike, kartica ostaje tamna, bez nacrtane staze.
+
+Umesto ručnog editovanja JSON-a možeš koristiti [Urednik](https://conevidanovic55-ui.github.io/formulatrke/public/urednik.html). Polje „Zastava na kartici“ unosi naziv već otpremljene slike. Urednik čuva nacrt lokalno; „Preuzmi nacrt“ omogućava objavu bez tokena. Objavljivanje iz Urednika sa GitHub tokenom piše u repozitorijum `conevidanovic55-ui/formulatrke`, ne u stari `Web-sajt`.
+
 ## Dodavanje trke
 
 Otvori `/urednik.html` na sajtu:
@@ -28,14 +40,14 @@ Nacrt se automatski čuva u lokalnom skladištu tog pregledača. **Nacrt nije ja
 
 ### Objavljivanje bez tokena
 
-Klikni „Preuzmi nacrt“. Prijavi se na GitHub, otvori https://github.com/conevidanovic55-ui/Web-sajt/upload/main/public , izaberi preuzeti `content.json` i klikni **Commit changes**. Datoteka mora ostati nazvana `content.json`, u direktorijumu `public`. GitHub Actions zatim objavljuje novu verziju sajta. Posle uspešnog procesa promene postaju javne.
+Klikni „Preuzmi nacrt“. Prijavi se na GitHub, otvori https://github.com/conevidanovic55-ui/formulatrke/upload/main/public , izaberi preuzeti `content.json` i klikni **Commit changes**. Datoteka mora ostati nazvana `content.json`, u direktorijumu `public`. GitHub Actions zatim objavljuje novu verziju sajta. Posle uspešnog procesa promene postaju javne.
 
 ### Objavljivanje iz urednika
 
 Opciono napravi fine-grained GitHub token na https://github.com/settings/personal-access-tokens/new :
 
 - Resource owner: `conevidanovic55-ui`.
-- Repository access: samo `Web-sajt`.
+- Repository access: samo `formulatrke`.
 - Repository permission: **Contents — Read and write** (Metadata read dolazi automatski).
 - Postavi kratak rok važenja i obnovi ga kada istekne.
 
@@ -59,13 +71,13 @@ Javna arhiva sadrži korisnikov OK.ru snimak „VN Kine — Sport Klub Hrvatska�
 
 Predviđen je **GitHub Pages za javni repozitorijum na GitHub Free**, bez kartice. Nema kupovine domena: dobija se projektna podadresa oblika:
 
-`https://conevidanovic55-ui.github.io/Web-sajt/`
+`https://conevidanovic55-ui.github.io/formulatrke/`
 
 Ovo je očekivana adresa; aktivna je tek nakon uspešnog objavljivanja i provere. Ako je repozitorijum privatan, nemoj uključivati plaćeni plan: vlasnik prvo treba da odobri javnost repozitorijuma ili izabere drugi besplatan statički hosting. Pages ima standardna ograničenja usluge, dok video saobraćaj ide ka servisu na kojem je snimak.
 
 Za javno objavljivanje izaberi **Settings → Pages → Build and deployment → Source: Deploy from a branch → main → / (root)** i klikni Save. Nije potrebno ručno pokretati workflow niti birati GitHub Actions kao izvor. GitHub automatski objavljuje promene posle svakog push-a na main.
 
-Korenski `index.html` preusmerava u `public/`, a `.nojekyll` čuva statičke fajlove. Direktna putanja sajta je i `https://conevidanovic55-ui.github.io/Web-sajt/public/`. Kontrolni workflow Provera sajta proverava kod, ali ne menja objavljivanje. `dist/` ostaje dostupan za lokalni preview ili drugi statički hosting.
+Korenski `index.html` preusmerava u `public/`, a `.nojekyll` čuva statičke fajlove. Direktna putanja sajta je i `https://conevidanovic55-ui.github.io/formulatrke/public/`. Kontrolni workflow Provera sajta proverava kod, ali ne menja objavljivanje. `dist/` ostaje dostupan za lokalni preview ili drugi statički hosting.
 
 Ne traži se Cloudflare nalog, R2, Cloudflare token niti kartica. Stari ignorisani `.data/` fajlovi prethodne razvojne verzije nisu deo novog sajta i sačuvani su kako korisnički podaci ne bi bili obrisani. Prethodni Cloudflare zahtevi mogu ostati u starom nacrtu podešavanja okruženja; alat ne podržava njihovo brisanje, pa se po potrebi uklanjaju u korisničkom panelu. Aplikacija ih ne koristi.
 
@@ -77,7 +89,7 @@ npm run build
 python3 tests/browser_smoke.py
 ```
 
-Prve dve komande traže samo Node. Browser test koristi preinstalirani Python Playwright i Chromium. Proverava mobilni prikaz, filtere, projektni `/Web-sajt/` prefiks, OK.ru embed URL i sandbox, spoljne linkove, čuvanje/uvoz/izvoz nacrta i GitHub objavljivanje sa presretnutim API odgovorima. GitHub i video frejmovi u testu su simulirani: test ne potvrđuje stvarnu reprodukciju na OK.ru niti živo javno objavljivanje. Slike prikaza su u ignorisanom `test-results/`.
+Prve dve komande traže samo Node. Browser test koristi preinstalirani Python Playwright i Chromium. Proverava mobilni prikaz, filtere, projektni `/formulatrke/` prefiks, OK.ru embed URL i sandbox, spoljne linkove, čuvanje/uvoz/izvoz nacrta i GitHub objavljivanje sa presretnutim API odgovorima. GitHub i video frejmovi u testu su simulirani: test ne potvrđuje stvarnu reprodukciju na OK.ru niti živo javno objavljivanje. Slike prikaza su u ignorisanom `test-results/`.
 
 ## Dodatna besplatna adresa: formulatrke.netlify.app
 
@@ -89,7 +101,7 @@ Vlasnik se prijavljuje na svoj Netlify nalog preko GitHub-a, bira besplatan plan
 
 https://app.netlify.com/start
 
-Poveži postojeći repozitorijum, bez pravljenja njegove kopije, jer urednik menja baš Web-sajt. Pri kreiranju projekta treba izabrati naziv `formulatrke`, granu `main` i postojeću konfiguraciju iz `netlify.toml`, pa pokrenuti objavljivanje. Hosting zatim automatski ažurira sajt nakon promena na main. Nije potrebno dostavljati lozinku ili token u četu. Ako kreiranje traži karticu ili plaćeni paket, ne aktivirati plaćanje; javiti šta prikazuje i zadržati postojeći besplatan GitHub Pages sajt.
+Poveži postojeći repozitorijum, bez pravljenja njegove kopije, jer urednik menja baš formulatrke. Pri kreiranju projekta treba izabrati naziv `formulatrke`, granu `main` i postojeću konfiguraciju iz `netlify.toml`, pa pokrenuti objavljivanje. Hosting zatim automatski ažurira sajt nakon promena na main. Nije potrebno dostavljati lozinku ili token u četu. Ako kreiranje traži karticu ili plaćeni paket, ne aktivirati plaćanje; javiti šta prikazuje i zadržati postojeći besplatan GitHub Pages sajt.
 
 Urednik i dalje menja isti `public/content.json` na GitHub-u; time se ažuriraju oba povezana hostinga. Postojeći nacrt iz starog domena ne prenosi se automatski u novi pregledački origin: preuzmi content.json ako želiš da ga uvezeš na novoj adresi.
 
