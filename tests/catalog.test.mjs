@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { runInNewContext } from 'node:vm';
 import { filterRaces, socialUrl, videoSource, validateCatalog, validRaceImage } from '../public/lib/catalog.js';
 const catalog = JSON.parse(await readFile(new URL('./fixtures/demo-catalog.json', import.meta.url)));
 test('catalog is valid and demo records have no fabricated videos', () => {
@@ -60,4 +61,27 @@ test('published race image names are valid', async () => {
   assert.equal(live.races.length, 2);
   assert.ok(live.races.every(r => validRaceImage(r.image)));
   assert.deepEqual(validateCatalog(live), []);
+});
+
+test('social links render even if the removed About section is missing', async () => {
+  const source = await readFile(new URL('../public/app.js', import.meta.url), 'utf8');
+  const match = source.match(/function renderSocials\(\) \{[\s\S]*?\n\}/);
+  assert.ok(match, 'renderSocials is available');
+  const links = {
+    children: [],
+    replaceChildren() { this.children = []; },
+    append(element) { this.children.push(element); },
+  };
+  const catalog = { socials: { instagram: 'https://www.instagram.com/formulacija/' } };
+  const fakeDocument = { createElement() { return {}; } };
+  const renderSocials = runInNewContext('(' + match[0] + ')', {
+    $: selector => selector === '#social-links' ? links : null,
+    document: fakeDocument,
+    socialIcons: { instagram: '<svg></svg>' },
+    socialUrl: (platform, value) => value,
+    catalog,
+  });
+  assert.doesNotThrow(() => renderSocials());
+  assert.equal(links.children.length, 1);
+  assert.equal(links.children[0].href, catalog.socials.instagram);
 });
