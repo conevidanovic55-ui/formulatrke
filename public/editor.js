@@ -27,7 +27,7 @@ function renderRaces() {
     const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'delete-race'; edit.textContent = 'Izmeni';
     edit.addEventListener('click', () => {
       $('#race-form').dataset.editId = race.id;
-      for (const [field, value] of Object.entries({ title: race.title, location: race.location, season: race.season, kind: race.kind, date: race.date || '', art: race.art })) $(`#race-${field}`).value = value;
+      for (const [field, value] of Object.entries({ title: race.title, location: race.location, season: race.season, kind: race.kind, date: race.date || '', image: race.image || '' })) $(`#race-${field}`).value = value;
       $('#video-link').value = race.videoUrl || ''; $('#rights').checked = false; $('#add-race').textContent = 'Sačuvaj link u nacrt'; $('#race-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'delete-race'; remove.textContent = 'Ukloni';
@@ -110,7 +110,7 @@ $('#race-form').addEventListener('submit', event => {
     if (!videoSource(videoUrl)) throw new Error('Dodaj ispravan HTTPS link ka snimku.');
     const season = $('#race-season').value, editId = $('#race-form').dataset.editId;
     const existing = catalog.races.find(r => r.id === editId);
-    const race = { id: existing?.id || `snimak-${crypto.randomUUID()}`, title: $('#race-title').value.trim(), location: $('#race-location').value.trim(), season, category: 'Formula 1', kind: $('#race-kind').value, round: existing?.round || Math.max(0, ...catalog.races.filter(r => r.season === season).map(r => r.round)) + 1, date: $('#race-date').value, duration: existing?.duration || '', art: $('#race-art').value, videoUrl };
+    const race = { id: existing?.id || `snimak-${crypto.randomUUID()}`, title: $('#race-title').value.trim(), location: $('#race-location').value.trim(), season, category: 'Formula 1', kind: $('#race-kind').value, round: existing?.round || Math.max(0, ...catalog.races.filter(r => r.season === season).map(r => r.round)) + 1, date: $('#race-date').value, duration: existing?.duration || '', image: $('#race-image').value.trim(), videoUrl };
     const candidate = { ...catalog, races: [...catalog.races.filter(r => r.id !== editId), race] };
     const errors = validateCatalog(candidate); if (errors.length) throw new Error(errors.join(' '));
     catalog = candidate; changed(); renderRaces(); $('#race-form').reset(); delete $('#race-form').dataset.editId;
