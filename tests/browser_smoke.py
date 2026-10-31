@@ -31,6 +31,7 @@ try:
         context.route('**/content.json', lambda route: route.fulfill(json=seed))
         context.route('https://ok.ru/**', lambda route: route.fulfill(body='<p>Intercepted provider frame for browser test</p>', content_type='text/html'))
         def github(route):
+            assert '/repos/formulacija/formulatrke/contents/public/content.json' in route.request.url
             assert route.request.headers.get('authorization') == 'Bearer browser-test-token'
             if route.request.method == 'GET':
                 route.fulfill(json={'sha': remote['sha'], 'content': base64.b64encode(json.dumps(remote['catalog']).encode()).decode()})

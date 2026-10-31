@@ -10,6 +10,7 @@ test('publishing uses branch and optimistic concurrency without writing the toke
   t.after(() => { globalThis.fetch = original; });
   const calls = [];
   globalThis.fetch = async (url, options) => {
+    assert.ok(url.startsWith('https://api.github.com/repos/formulacija/formulatrke/contents/public/content.json'), 'Urednik mora objavljivati u aktivni GitHub repozitorijum');
     calls.push({ url, options });
     return Response.json(options.method ? { content: { sha: 'next' } } : { sha: 'initial', content: encodeContent('{"name":"Formulacija"}') });
   };

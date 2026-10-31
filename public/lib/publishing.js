@@ -1,5 +1,5 @@
 // A fine-grained GitHub token stays in memory in the editor; never save it in content.
-export const REPOSITORY = 'conevidanovic55-ui/formulatrke';
+export const REPOSITORY = 'formulacija/formulatrke';
 export const BRANCH = 'main';
 export const CONTENT_PATH = 'public/content.json';
 const endpoint = `https://api.github.com/repos/${REPOSITORY}/contents/${CONTENT_PATH}`;
