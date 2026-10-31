@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
 import { filterRaces, socialUrl, videoSource, validateCatalog, validRaceImage } from '../public/lib/catalog.js';
 const catalog = JSON.parse(await readFile(new URL('./fixtures/demo-catalog.json', import.meta.url)));
@@ -56,11 +56,16 @@ test('flag images are local asset filenames, not arbitrary paths or urls', () =>
   assert.ok(validateCatalog(missing).some(e => e.includes('Naziv slike')));
 });
 
-test('published race image names are valid', async () => {
+test('published race image names are valid and images exist regardless of race count', async () => {
   const live = JSON.parse(await readFile(new URL('../public/content.json', import.meta.url)));
-  assert.equal(live.races.length, 2);
-  assert.ok(live.races.every(r => validRaceImage(r.image)));
   assert.deepEqual(validateCatalog(live), []);
+  for (const race of live.races) {
+    if (race.image === undefined) continue;
+    assert.ok(validRaceImage(race.image), `Neispravan naziv slike: ${race.title}`);
+    const imagePath = new URL('../public/assets/' + encodeURIComponent(race.image), import.meta.url);
+    const file = await stat(imagePath);
+    assert.ok(file.size > 0, `Prazna slika: ${race.image}`);
+  }
 });
 
 test('social links render even if the removed About section is missing', async () => {
