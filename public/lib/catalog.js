@@ -66,6 +66,13 @@ export function filterRaces(races, { season = 'all', kind = 'all', query = '', s
     : b.season.localeCompare(a.season) || (b.date || '').localeCompare(a.date || '') || b.round - a.round);
 }
 
+// Dozvoljavamo samo naziv datoteke, ne putanje i spoljne URL-ove.
+export function validRaceImage(value) {
+  return typeof value === 'string' && value.length <= 120 &&
+    /^[\p{L}\p{N}][\p{L}\p{N} ._-]*\.(?:png|jpe?g|webp|avif)$/iu.test(value) &&
+    !value.includes('..');
+}
+
 export function validateCatalog(data) {
   const errors = [];
   if (!data || typeof data !== 'object') return ['Neispravan format arhive.'];
@@ -85,7 +92,7 @@ export function validateCatalog(data) {
     if (race.date && (!/^\d{4}-\d{2}-\d{2}$/.test(race.date) || Number.isNaN(Date.parse(race.date)) || new Date(race.date).toISOString().slice(0, 10) !== race.date)) errors.push('Neispravan datum snimka.');
     if (race.duration && (typeof race.duration !== 'string' || !/^\d{1,2}:\d{2}(?::\d{2})?$/.test(race.duration))) errors.push('Trajanje koristi oblik 1:30:00.');
     if (race.videoUrl && !videoSource(race.videoUrl)) errors.push(`Nepodržan video link: ${race.title}.`);
-    if (!['monaco', 'spa', 'monza', 'suzuka', 'silverstone', 'australia', 'shanghai'].includes(race.art)) errors.push('Izaberi postojeću ilustraciju staze.');
+    if (race.image !== undefined && !validRaceImage(race.image)) errors.push('Naziv slike mora biti ime PNG/JPG/WEBP/AVIF datoteke iz assets foldera.');
   }
   for (const platform of Object.keys(SOCIAL_HOSTS)) {
     if (data.socials?.[platform] && !socialUrl(platform, data.socials[platform])) errors.push(`Neispravan ${platform} link.`);
