@@ -47,9 +47,6 @@ function renderSocials() {
     link.setAttribute('aria-label', `${platform === 'tiktok' ? 'TikTok' : platform === 'youtube' ? 'YouTube' : 'Instagram'} — Formulacija (nova kartica)`);
     link.innerHTML = icon; $('#social-links').append(link);
   }
-  const instagram = socialUrl('instagram', catalog.socials?.instagram);
-  const aboutLink = $('.about-link');
-  if (instagram && aboutLink) aboutLink.href = instagram;
 }
 
 function render() {
