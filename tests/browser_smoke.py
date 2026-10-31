@@ -81,6 +81,7 @@ try:
         page.locator('#add-season').click()
         page.locator('#race-title').fill('Provera OK.ru linka')
         page.locator('#race-location').fill('Test staza')
+        page.locator('#race-image').fill('Kina.png')
         page.locator('#video-link').fill('https://ok.ru/video/11719629212384')
         page.locator('#preview-video').click()
         preview = page.locator('#editor-preview iframe')
@@ -146,8 +147,10 @@ try:
         context.unroute('**/content.json')
         page.goto('http://127.0.0.1:3001/')
         page.locator('.race-card').first.wait_for()
-        assert page.locator('.race-card').count() == 1
-        assert 'VN Kine' in page.locator('.card-title').inner_text()
+        assert page.locator('.race-card').count() == 2
+        assert 'Kine' in page.locator('.card-title').last.inner_text() or 'Kine' in page.locator('.card-title').first.inner_text()
+        assert page.locator('.circuit').count() == 0
+        assert page.locator('.card-image').count() == 2
         assert page.get_by_role('button', name='Sezona 2025').get_attribute('aria-pressed') == 'true'
         page.set_viewport_size({'width': 1440, 'height': 1000})
         page.screenshot(path=str(OUT / 'desktop.png'), full_page=True)

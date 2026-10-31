@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { filterRaces, socialUrl, videoSource, validateCatalog } from '../public/lib/catalog.js';
+import { filterRaces, socialUrl, videoSource, validateCatalog, validRaceImage } from '../public/lib/catalog.js';
 const catalog = JSON.parse(await readFile(new URL('./fixtures/demo-catalog.json', import.meta.url)));
 test('catalog is valid and demo records have no fabricated videos', () => {
   assert.deepEqual(validateCatalog(catalog), []);
@@ -40,4 +40,24 @@ test('published catalog contains the user-provided China 2025 link', async () =>
   assert.deepEqual(validateCatalog(live), []);
   assert.equal(live.races[0].season, '2025');
   assert.equal(live.races[0].videoUrl, 'https://ok.ru/video/11719629212384');
+});
+
+test('flag images are local asset filenames, not arbitrary paths or urls', () => {
+  assert.equal(validRaceImage('Kina.png'), true);
+  assert.equal(validRaceImage('Monako.jpg'), true);
+  assert.equal(validRaceImage('Španija.png'), true);
+  assert.equal(validRaceImage('Saudi Arabia.png'), true);
+  for (const bad of ['../secret.jpg', 'https://evil.test/flag.png', '/Kina.png', 'Kina.svg', 'foo\\bar.png', '']) {
+    assert.equal(validRaceImage(bad), false);
+  }
+  const missing = structuredClone(catalog);
+  missing.races[0].image = '../secret.png';
+  assert.ok(validateCatalog(missing).some(e => e.includes('Naziv slike')));
+});
+
+test('published race image names are valid', async () => {
+  const live = JSON.parse(await readFile(new URL('../public/content.json', import.meta.url)));
+  assert.equal(live.races.length, 2);
+  assert.ok(live.races.every(r => validRaceImage(r.image)));
+  assert.deepEqual(validateCatalog(live), []);
 });
