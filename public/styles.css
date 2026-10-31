@@ -25,3 +25,6 @@
 /* Slike trka: zastava prekriva celo polje kartice, bez crteza staza. */
 .card-art { background: #310b0b; }
 .card-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Podnozje bez duplog logotipa: drustvene mreze ostaju desno. */
+.site-footer .footer-main { justify-content: flex-end; }
