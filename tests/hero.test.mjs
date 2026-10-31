@@ -5,8 +5,8 @@ import { chooseHeroTrack, isHeroTrack } from '../public/lib/hero.js';
 
 const { tracks } = JSON.parse(await readFile(new URL('../public/staze.json', import.meta.url)));
 
-test('hero catalog contains 11 usable and distinct race circuit photos', async () => {
-  assert.equal(tracks.length, 11);
+test('hero catalog contains 23 usable and distinct race circuit photos', async () => {
+  assert.equal(tracks.length, 23);
   assert.equal(new Set(tracks.map(track => track.image)).size, tracks.length);
   assert.ok(tracks.every(isHeroTrack));
   assert.ok(!tracks.some(track => /madring|madrid/i.test(track.name + ' ' + track.image)));
@@ -25,7 +25,7 @@ test('hero switch always chooses a different track when possible', () => {
   assert.notEqual(second.image, first.image);
   assert.equal(second.image, 'Bahrein.jpg');
   const last = chooseHeroTrack(tracks, '', () => .999999);
-  assert.equal(last.image, 'šangaj.jpg');
+  assert.equal(last.image, 'zandvoort.jpg');
   assert.equal(chooseHeroTrack([first], first.image, () => 0), first);
 });
 
@@ -47,4 +47,27 @@ test('hero is loaded separately from the race catalog', async () => {
   assert.ok(html.includes('id="hero-track-name"'));
   assert.ok(html.includes('id="hero-track-coordinates"'));
   assert.ok(html.includes('src="./hero.js"'));
+});
+
+test('new circuits retain the correct photo and circuit coordinates', () => {
+  const expected = new Map([
+    ['abu dabi.jpg', 'YAS MARINA'],
+    ['baku.jpg', 'BAKU'],
+    ['barselona.jpg', 'BARSELONA-KATALUNJA'],
+    ['istanbul.jpg', 'ISTANBUL PARK'],
+    ['kanada.jpg', 'ŽIL VILNEV'],
+    ['meksiko.jpg', 'HERMANOS RODRIGEZ'],
+    ['monako.jpg', 'MONAKO'],
+    ['sao paoulo.jpg', 'INTERLAGOS'],
+    ['silverston.jpg', 'SILVERSTON'],
+    ['singapur.jpg', 'MARINA BEJ'],
+    ['teksas.jpg', 'CIRCUIT OF THE AMERICAS'],
+    ['zandvoort.jpg', 'ZANDVORT'],
+  ]);
+  for (const [image, name] of expected) {
+    const track = tracks.find(track => track.image === image);
+    assert.ok(track, `Missing ${image}`);
+    assert.equal(track.name, name);
+    assert.match(track.coordinates, /^[0-9]{1,2}°[0-9]{2}′[0-9]{2}″ [NS] · [0-9]{1,3}°[0-9]{2}′[0-9]{2}″ [EW]$/);
+  }
 });

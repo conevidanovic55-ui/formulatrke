@@ -54,6 +54,66 @@
       "name": "ŠANGAJ",
       "image": "šangaj.jpg",
       "coordinates": "31°20′20″ N · 121°13′11″ E"
+    },
+    {
+      "name": "YAS MARINA",
+      "image": "abu dabi.jpg",
+      "coordinates": "24°28′02″ N · 54°36′11″ E"
+    },
+    {
+      "name": "BAKU",
+      "image": "baku.jpg",
+      "coordinates": "40°22′21″ N · 49°51′12″ E"
+    },
+    {
+      "name": "BARSELONA-KATALUNJA",
+      "image": "barselona.jpg",
+      "coordinates": "41°34′12″ N · 2°15′40″ E"
+    },
+    {
+      "name": "ISTANBUL PARK",
+      "image": "istanbul.jpg",
+      "coordinates": "40°57′06″ N · 29°24′18″ E"
+    },
+    {
+      "name": "ŽIL VILNEV",
+      "image": "kanada.jpg",
+      "coordinates": "45°30′02″ N · 73°31′21″ W"
+    },
+    {
+      "name": "HERMANOS RODRIGEZ",
+      "image": "meksiko.jpg",
+      "coordinates": "19°24′15″ N · 99°05′19″ W"
+    },
+    {
+      "name": "MONAKO",
+      "image": "monako.jpg",
+      "coordinates": "43°44′05″ N · 7°25′14″ E"
+    },
+    {
+      "name": "INTERLAGOS",
+      "image": "sao paoulo.jpg",
+      "coordinates": "23°42′04″ S · 46°41′50″ W"
+    },
+    {
+      "name": "SILVERSTON",
+      "image": "silverston.jpg",
+      "coordinates": "52°04′16″ N · 1°00′58″ W"
+    },
+    {
+      "name": "MARINA BEJ",
+      "image": "singapur.jpg",
+      "coordinates": "1°17′30″ N · 103°51′50″ E"
+    },
+    {
+      "name": "CIRCUIT OF THE AMERICAS",
+      "image": "teksas.jpg",
+      "coordinates": "30°07′58″ N · 97°38′28″ W"
+    },
+    {
+      "name": "ZANDVORT",
+      "image": "zandvoort.jpg",
+      "coordinates": "52°23′20″ N · 4°32′27″ E"
     }
   ]
 }

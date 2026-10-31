@@ -29,7 +29,7 @@ Umesto ručnog editovanja JSON-a možeš koristiti [Urednik](https://conevidanov
 
 ## Nasumična početna fotografija staze
 
-Početna stranica nasumično prikazuje jednu od **11 trenutno dostupnih fotografija**, uz naziv i geografske koordinate baš te staze. Fotografija se promeni kada posetilac otvori/osveži stranicu. U okviru iste kartice pregledača pamti se prethodna fotografija kako se ne bi ponovila odmah. Ova funkcija ne zavisi od arhive trka niti menja `content.json`.
+Početna stranica nasumično prikazuje jednu od **23 trenutno dostupne fotografije**, uz naziv i geografske koordinate baš te staze. Fotografija se promeni kada posetilac otvori/osveži stranicu. U okviru iste kartice pregledača pamti se prethodna fotografija kako se ne bi ponovila odmah. Ova funkcija ne zavisi od arhive trka niti menja `content.json`.
 
 Spisak uređuješ samo u **`public/staze.json`**. Svaki unos ima tri polja:
 
@@ -47,13 +47,17 @@ Za novu stazu:
 3. Sačuvaj izmene preko **Commit changes**; GitHub Pages objavljuje novu verziju.
 4. Osveži javni sajt i proveri prikaz.
 
-Nema potrebe za dodatnim izmenama `index.html`, `styles.css` ili `app.js`. Modul `public/hero.js` zasebno učitava spisak, bira fotografiju, proverava njeno učitavanje i istovremeno prikazuje njene koordinate; oštećene/nedostupne fotografije preskače. Ako spisak ne može da se učita, ostaje rezervna hero fotografija bez izmišljenih koordinata. Prikazuje se samo jedna fotografija, ne učitava se svih 11 istovremeno.
+Nema potrebe za dodatnim izmenama `index.html`, `styles.css` ili `app.js`. Modul `public/hero.js` zasebno učitava spisak, bira fotografiju, proverava njeno učitavanje i istovremeno prikazuje njene koordinate; oštećene/nedostupne fotografije preskače. Ako spisak ne može da se učita, ostaje rezervna hero fotografija bez izmišljenih koordinata. Prikazuje se samo jedna fotografija, ne učitava se svih 23 istovremeno.
 
 **Autorska prava:** pre dodavanja fotografije proveri prava za javno objavljivanje; za CC BY / CC BY-SA navedi autora, izvor i odgovarajuću licencu na sajtu. Ime datoteke ne predstavlja atribuciju.
 
-### Izvori koordinata za trenutnih 11 staza
+### Izvori koordinata za trenutne 23 staze
 
 Koordinate su proverene na stranicama konkretnih staza (uglavnom Vikipedija), uključujući zvanični sajt Monce: [Albert Park](https://en.wikipedia.org/wiki/Albert_Park_Circuit), [Bahrein](https://en.wikipedia.org/wiki/Bahrain_International_Circuit), [Džeda](https://en.wikipedia.org/wiki/Jeddah_Corniche_Circuit), [Hungaroring](https://en.wikipedia.org/wiki/Hungaroring), [Lusail](https://en.wikipedia.org/wiki/Lusail_International_Circuit), [Majami](https://en.wikipedia.org/wiki/Miami_International_Autodrome), [Monca](https://www.monzanet.it/en/circuit/), [Red Bull Ring](https://en.wikipedia.org/wiki/Red_Bull_Ring), [Spa](https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps), [Suzuka](https://en.wikipedia.org/wiki/Suzuka_Circuit), [Šangaj](https://en.wikipedia.org/wiki/Shanghai_International_Circuit).
+
+
+Novih 12 staza: [Jas Marina](https://en.wikipedia.org/wiki/Yas_Marina_Circuit), [Baku](https://en.wikipedia.org/wiki/Baku_City_Circuit), [Barselona](https://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya), [Istanbul Park](https://en.wikipedia.org/wiki/Istanbul_Park), [Žil Vilnev](https://en.wikipedia.org/wiki/Circuit_Gilles_Villeneuve), [Meksiko](https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Hermanos_Rodr%C3%ADguez), [Monako](https://en.wikipedia.org/wiki/Circuit_de_Monaco), [Interlagos](https://en.wikipedia.org/wiki/Interlagos_Circuit), [Silverston](https://en.wikipedia.org/wiki/Silverstone_Circuit), [Marina Bej](https://en.wikipedia.org/wiki/Marina_Bay_Street_Circuit), [Circuit of the Americas](https://en.wikipedia.org/wiki/Circuit_of_the_Americas) i [Zandvort](https://en.wikipedia.org/wiki/Circuit_Zandvoort).
+
 
 ## Dodavanje trke
 
