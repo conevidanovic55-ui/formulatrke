@@ -65,9 +65,7 @@ function render() {
       picture.addEventListener('error', () => picture.remove());
       art.prepend(picture);
     }
-    card.querySelector('.card-category').textContent = race.category;
     card.querySelector('.card-kind').textContent = race.kind;
-    card.querySelector('.card-duration').textContent = race.videoUrl ? race.duration || 'SNIMAK' : 'PRIMER';
     card.querySelector('.card-meta').textContent = `${race.season} / ${race.kind}`;
     card.querySelector('.card-title').textContent = race.title;
     card.querySelector('.card-location').textContent = race.location;
