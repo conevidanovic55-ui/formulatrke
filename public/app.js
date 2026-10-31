@@ -2,15 +2,6 @@ import { filterRaces, socialUrl, videoSource, validateCatalog } from './lib/cata
 const $ = selector => document.querySelector(selector);
 const state = { season: 'all', kind: 'all', query: '', sort: 'newest' };
 let catalog;
-const tracks = {
-  shanghai: { code: 'SHA', bg: '#6b0909', ink: '#ffaaaa', path: 'M35 110 52 86Q25 43 69 31Q112 17 126 51Q133 77 107 81Q87 82 87 64L106 58 131 73 149 55 177 66 195 33 227 37 241 57 221 76 259 99 252 121 202 113 183 129 157 111 132 126 104 110 77 125Z' },
-  monaco: { code: 'MON', bg: '#6b0909', ink: '#ffaaaa', path: 'M40 100 54 82 76 84 93 71 112 74 124 53 143 48 153 23 169 30 163 47 187 54 203 38 225 38 235 53 256 57 266 77 245 82 230 103 217 104 205 120 181 112 167 124 142 115 132 123 108 110 86 116 75 104Z' },
-  spa: { code: 'SPA', bg: '#6b0909', ink: '#ffaaaa', path: 'M32 113 77 117 92 102 119 104 136 82 153 86 164 64 189 59 203 30 221 20 246 33 254 55 270 73 253 81 240 68 221 77 214 96 198 99 187 115 160 121 145 112 126 122 95 132 43 130Z' },
-  monza: { code: 'MNZ', bg: '#6b0909', ink: '#ffaaaa', path: 'M43 117 67 104 87 110 106 89 143 81 156 64 172 69 216 23Q244 4 263 26Q278 48 260 70L221 112 201 109 185 128 70 134Z' },
-  suzuka: { code: 'SUZ', bg: '#6b0909', ink: '#ffaaaa', path: 'M32 92Q20 60 45 53L70 61 91 44 108 48 121 37 143 45 158 29 179 44 176 69 193 86 219 76 242 90Q275 120 245 132L212 129 181 107 157 83 139 91 115 74 95 88 77 76 62 98Z' },
-  silverstone: { code: 'SIL', bg: '#6b0909', ink: '#ffaaaa', path: 'M37 111 61 77 85 81 117 30 143 40 133 65 165 77 188 43 213 36 233 58 249 55 272 83 248 105 220 96 206 120 175 129 155 108 133 122 106 106 86 130 62 120Z' },
-  australia: { code: 'MEL', bg: '#6b0909', ink: '#ffaaaa', path: 'M51 113 47 87 72 77 88 51 105 53 117 24 143 27 158 49 179 43 199 63 226 60 249 79 263 108 245 125 210 120 188 135 159 118 144 129 113 116 90 129 75 111Z' },
-};
 const socialIcons = {
   instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1"/></svg>',
   tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2h3c0 2.5 1.4 4 4 4.3v3c-1.6 0-3-.5-4-1.4v8.3A6.5 6.5 0 1 1 12 9.7v3.1a3.4 3.4 0 1 0 3 3.4Z"/></svg>',
@@ -65,22 +56,17 @@ function render() {
   const fragment = document.createDocumentFragment();
   for (const race of races) {
     const card = $('#race-card-template').content.firstElementChild.cloneNode(true);
-    const track = tracks[race.art] || tracks.monaco;
-    card.style.setProperty('--art-bg', track.bg); card.style.setProperty('--art-ink', track.ink);
-    card.querySelector('.card-code').textContent = track.code;
-    card.querySelector('.circuit path').setAttribute('d', track.path);
-if (race.id === 'kina-2025-sport-klub-hr') {
-  const slika = card.querySelector('.card-art');
-
-  slika.classList.add('slika-zastave');
-
-  slika.style.background =
-    "url('./assets/Kina.png') center / cover no-repeat";
-
-  slika.querySelector('.card-code').remove();
-  slika.querySelector('.circuit').remove();
-}
-
+    const art = card.querySelector('.card-art');
+    if (race.image) {
+      const picture = document.createElement('img');
+      picture.className = 'card-image';
+      picture.src = './assets/' + encodeURIComponent(race.image);
+      picture.alt = '';
+      picture.loading = 'lazy';
+      picture.decoding = 'async';
+      picture.addEventListener('error', () => picture.remove());
+      art.prepend(picture);
+    }
     card.querySelector('.card-category').textContent = race.category;
     card.querySelector('.card-kind').textContent = race.kind;
     card.querySelector('.card-duration').textContent = race.videoUrl ? race.duration || 'SNIMAK' : 'PRIMER';
