@@ -1,5 +1,5 @@
 // A fine-grained GitHub token stays in memory in the editor; never save it in content.
-export const REPOSITORY = 'conevidanovic55-ui/Web-sajt';
+export const REPOSITORY = 'conevidanovic55-ui/formulatrke';
 export const BRANCH = 'main';
 export const CONTENT_PATH = 'public/content.json';
 const endpoint = `https://api.github.com/repos/${REPOSITORY}/contents/${CONTENT_PATH}`;
@@ -20,7 +20,7 @@ async function github(token, options = {}) {
   });
   if (!response.ok) {
     if ([409, 422].includes(response.status)) throw new Error('Arhiva je promenjena ili GitHub odbija izmenu. Preuzmi nacrt i ponovo poveži nalog pre ponovnog pokušaja.');
-    if ([401, 403, 404].includes(response.status)) throw new Error('Pristup repozitorijumu nije dozvoljen. Proveri da token važi za Web-sajt i ima Contents: Read and write.');
+    if ([401, 403, 404].includes(response.status)) throw new Error('Pristup repozitorijumu nije dozvoljen. Proveri da token važi za formulatrke i ima Contents: Read and write.');
     throw new Error(`GitHub trenutno nije dostupan (${response.status}). Nacrt nije izgubljen.`);
   }
   return response.json();
