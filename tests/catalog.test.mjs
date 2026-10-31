@@ -85,3 +85,14 @@ test('social links render even if the removed About section is missing', async (
   assert.equal(links.children.length, 1);
   assert.equal(links.children[0].href, catalog.socials.instagram);
 });
+
+test('landing page has no redundant archive/about links or public editor implementation details', async () => {
+  const html = await readFile(new URL('../public/index.html', import.meta.url), 'utf8');
+  assert.ok(html.includes('Istraži arhivu'));
+  assert.ok(!html.includes('>Arhiva trka</a>'));
+  assert.ok(!html.includes('O Formulaciji'));
+  assert.ok(!html.includes('GitHub token'));
+  assert.ok(!html.includes('Linkovi društvenih mreža'));
+  assert.ok(html.includes('id="privacy-dialog"'));
+  assert.ok(html.includes('id="race-grid"'));
+});

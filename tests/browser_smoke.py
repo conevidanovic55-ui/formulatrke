@@ -51,6 +51,17 @@ try:
         assert page.locator('.race-card').count() == 6
         assert page.locator('#load-error').is_hidden(), 'Do not display an archive error alongside loaded races'
         assert page.locator('.social-link').count() == 3
+        assert page.locator('.site-header nav a').all_text_contents() == ['Početna']
+        assert page.locator('.site-header .brand-logo').bounding_box()['width'] >= 320
+        assert page.get_by_role('link', name='Istraži arhivu').is_visible()
+        page.get_by_role('link', name='Privatnost').click()
+        privacy = page.locator('#privacy-dialog')
+        assert privacy.is_visible()
+        assert 'GitHub' not in privacy.inner_text()
+        assert 'društvenih' not in privacy.inner_text().lower()
+        assert 'video' in privacy.inner_text().lower()
+        page.keyboard.press('Escape')
+        assert privacy.is_hidden()
         page.screenshot(path=str(OUT / 'desktop.png'), full_page=True)
         page.get_by_role('button', name='Sezona 2025').click()
         assert page.locator('.race-card').count() == 2
@@ -67,6 +78,8 @@ try:
         for width in [375, 390, 768]:
             page.set_viewport_size({'width': width, 'height': 844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Horizontal overflow at {width}'
+            assert page.locator('.site-header .brand-logo').bounding_box()['width'] >= 165
+            assert page.get_by_role('link', name='Početna').is_visible()
             if width == 390:
                 page.get_by_role('button', name='Sezona 2026').click()
                 page.screenshot(path=str(OUT / 'mobile.png'), full_page=True)
