@@ -22,6 +22,19 @@
       "duration": "",
       "art": "shanghai",
       "videoUrl": "https://ok.ru/video/11719629212384"
+    },
+    {
+      "id": "snimak-93b25b01-d80d-4cca-bcd4-51d9f7dde957",
+      "title": "Velika nagrada Monaka — RTL HR",
+      "location": "Monte Karlo",
+      "season": "2026",
+      "category": "Formula 1",
+      "kind": "Trening",
+      "round": 1,
+      "date": "2026-06-06",
+      "duration": "",
+      "art": "monaco",
+      "videoUrl": "https://ok.ru/video/15160822663904"
     }
   ]
 }
