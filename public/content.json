@@ -20,8 +20,8 @@
       "round": 1,
       "date": "",
       "duration": "",
-      "art": "shanghai",
-      "videoUrl": "https://ok.ru/video/11719629212384"
+      "videoUrl": "https://ok.ru/video/11719629212384",
+      "image": "Kina.png"
     },
     {
       "id": "snimak-93b25b01-d80d-4cca-bcd4-51d9f7dde957",
@@ -33,8 +33,8 @@
       "round": 1,
       "date": "2026-06-06",
       "duration": "",
-      "art": "Monako.jpg",
-      "videoUrl": "https://ok.ru/video/15160822663904"
+      "videoUrl": "https://ok.ru/video/15160822663904",
+      "image": "Monako.jpg"
     }
   ]
 }
