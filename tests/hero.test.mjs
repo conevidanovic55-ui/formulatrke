@@ -68,6 +68,6 @@ test('new circuits retain the correct photo and circuit coordinates', () => {
     const track = tracks.find(track => track.image === image);
     assert.ok(track, `Missing ${image}`);
     assert.equal(track.name, name);
-    assert.match(track.coordinates, /^\\d{1,2}°\\d{2}′\\d{2}″ [NS] · \\d{1,3}°\\d{2}′\\d{2}″ [EW]$/);
+    assert.match(track.coordinates, /^[0-9]{1,2}°[0-9]{2}′[0-9]{2}″ [NS] · [0-9]{1,3}°[0-9]{2}′[0-9]{2}″ [EW]$/);
   }
 });
