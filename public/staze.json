@@ -1,0 +1,59 @@
+{
+  "tracks": [
+    {
+      "name": "ALBERT PARK",
+      "image": "Albert park.jpg",
+      "coordinates": "37°50′59″ S · 144°58′06″ E"
+    },
+    {
+      "name": "BAHREIN",
+      "image": "Bahrein.jpg",
+      "coordinates": "26°01′57″ N · 50°30′38″ E"
+    },
+    {
+      "name": "DŽEDA",
+      "image": "džeda.jpg",
+      "coordinates": "21°37′55″ N · 39°06′16″ E"
+    },
+    {
+      "name": "HUNGARORING",
+      "image": "hungaroring.jpg",
+      "coordinates": "47°34′56″ N · 19°15′04″ E"
+    },
+    {
+      "name": "LUSAIL",
+      "image": "katar.JPG",
+      "coordinates": "25°29′24″ N · 51°27′15″ E"
+    },
+    {
+      "name": "MAJAMI",
+      "image": "majami.jpg",
+      "coordinates": "25°57′29″ N · 80°14′20″ W"
+    },
+    {
+      "name": "MONCA",
+      "image": "Monca.jpg",
+      "coordinates": "45°37′06″ N · 9°16′54″ E"
+    },
+    {
+      "name": "RED BULL RING",
+      "image": "red bul ring.jpg",
+      "coordinates": "47°13′11″ N · 14°45′53″ E"
+    },
+    {
+      "name": "SPA-FRANCORCHAMPS",
+      "image": "spa.jpg",
+      "coordinates": "50°26′14″ N · 5°58′17″ E"
+    },
+    {
+      "name": "SUZUKA",
+      "image": "suzuka.jpg",
+      "coordinates": "34°50′30″ N · 136°32′20″ E"
+    },
+    {
+      "name": "ŠANGAJ",
+      "image": "šangaj.jpg",
+      "coordinates": "31°20′20″ N · 121°13′11″ E"
+    }
+  ]
+}
