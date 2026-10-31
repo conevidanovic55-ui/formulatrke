@@ -73,7 +73,7 @@ test('social links render even if the removed About section is missing', async (
     append(element) { this.children.push(element); },
   };
   const catalog = { socials: { instagram: 'https://www.instagram.com/formulacija/' } };
-  const fakeDocument = { createElement() { return {}; } };
+  const fakeDocument = { createElement() { return { setAttribute() {} }; } };
   const renderSocials = runInNewContext('(' + match[0] + ')', {
     $: selector => selector === '#social-links' ? links : null,
     document: fakeDocument,
