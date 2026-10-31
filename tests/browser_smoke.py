@@ -51,6 +51,11 @@ try:
         assert page.locator('.race-card').count() == 6
         assert page.locator('#load-error').is_hidden(), 'Do not display an archive error alongside loaded races'
         assert page.locator('.social-link').count() == 3
+        assert page.locator('.hero-bottom .arrow-down').count() == 0
+        assert page.locator('.card-category').count() == 0
+        assert page.locator('.card-duration').count() == 0
+        assert page.locator('.card-kind').count() == page.locator('.race-card').count()
+        assert abs(page.locator('.ticker > div').bounding_box()['x'] + page.locator('.ticker > div').bounding_box()['width'] / 2 - 720) < 4
         # Hero picture and coordinates come from the same JSON entry.
         hero = page.locator('.hero[data-track-image]')
         hero.wait_for(timeout=30000)
@@ -103,6 +108,7 @@ try:
         for width in [375, 390, 768]:
             page.set_viewport_size({'width': width, 'height': 844})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Horizontal overflow at {width}'
+            assert abs(page.locator('.ticker > div').bounding_box()['x'] + page.locator('.ticker > div').bounding_box()['width'] / 2 - width / 2) < 4
             assert page.locator('.site-header .brand-logo').bounding_box()['width'] >= 165
             assert page.get_by_role('link', name='Početna').is_visible()
             if width == 390:
