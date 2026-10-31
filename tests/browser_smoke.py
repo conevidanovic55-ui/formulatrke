@@ -190,13 +190,18 @@ try:
         assert page.locator('.race-card').count() == 6
         # Finally verify the actual public catalog without test fixture interception.
         context.unroute('**/content.json')
+        live_catalog = json.loads((ROOT / 'public/content.json').read_text())
+        playable = [race for race in live_catalog['races'] if race.get('videoUrl')]
+        newest_playable_season = next(
+            (season for season in live_catalog['seasons'] if any(r['season'] == season for r in playable)),
+            live_catalog['seasons'][0]
+        )
         page.goto('http://127.0.0.1:3001/')
         page.locator('.race-card').first.wait_for()
-        assert page.locator('.race-card').count() == 2
-        assert 'Kine' in page.locator('.card-title').last.inner_text() or 'Kine' in page.locator('.card-title').first.inner_text()
+        assert page.locator('.race-card').count() == len([r for r in live_catalog['races'] if r['season'] == newest_playable_season])
         assert page.locator('.circuit').count() == 0
-        assert page.locator('.card-image').count() == 2
-        assert page.get_by_role('button', name='Sezona 2025').get_attribute('aria-pressed') == 'true'
+        assert page.locator('.card-image').count() == len([r for r in live_catalog['races'] if r['season'] == newest_playable_season and r.get('image')])
+        assert page.get_by_role('button', name=f'Sezona {newest_playable_season}').get_attribute('aria-pressed') == 'true'
         page.set_viewport_size({'width': 1440, 'height': 1000})
         page.screenshot(path=str(OUT / 'desktop.png'), full_page=True)
         page.set_viewport_size({'width': 390, 'height': 844})
