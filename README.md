@@ -27,6 +27,34 @@ Nazivi se razlikuju po velikim/malim slovima: `Kina.png` i `kina.png` nisu isto.
 
 Umesto ručnog editovanja JSON-a možeš koristiti [Urednik](https://conevidanovic55-ui.github.io/formulatrke/public/urednik.html). Polje „Zastava na kartici“ unosi naziv već otpremljene slike. Urednik čuva nacrt lokalno; „Preuzmi nacrt“ omogućava objavu bez tokena. Objavljivanje iz Urednika sa GitHub tokenom piše u repozitorijum `conevidanovic55-ui/formulatrke`, ne u stari `Web-sajt`.
 
+## Nasumična početna fotografija staze
+
+Početna stranica nasumično prikazuje jednu od **11 trenutno dostupnih fotografija**, uz naziv i geografske koordinate baš te staze. Fotografija se promeni kada posetilac otvori/osveži stranicu. U okviru iste kartice pregledača pamti se prethodna fotografija kako se ne bi ponovila odmah. Ova funkcija ne zavisi od arhive trka niti menja `content.json`.
+
+Spisak uređuješ samo u **`public/staze.json`**. Svaki unos ima tri polja:
+
+```json
+{
+  "name": "SUZUKA",
+  "image": "suzuka.jpg",
+  "coordinates": "34°50′30″ N · 136°32′20″ E"
+}
+```
+
+Za novu stazu:
+1. Otpremi fotografiju u `public/assets/` u GitHub repozitorijumu **formulatrke**, preporučeno kao optimizovan horizontalan JPG.
+2. U `public/staze.json` dodaj novi objekat u niz `tracks`; upiši **identičan naziv datoteke** (uključujući velika/mala slova i ekstenziju), naziv staze i proverene koordinate staze, ne grada.
+3. Sačuvaj izmene preko **Commit changes**; GitHub Pages objavljuje novu verziju.
+4. Osveži javni sajt i proveri prikaz.
+
+Nema potrebe za dodatnim izmenama `index.html`, `styles.css` ili `app.js`. Modul `public/hero.js` zasebno učitava spisak, bira fotografiju, proverava njeno učitavanje i istovremeno prikazuje njene koordinate; oštećene/nedostupne fotografije preskače. Ako spisak ne može da se učita, ostaje rezervna hero fotografija bez izmišljenih koordinata. Prikazuje se samo jedna fotografija, ne učitava se svih 11 istovremeno.
+
+**Autorska prava:** pre dodavanja fotografije proveri prava za javno objavljivanje; za CC BY / CC BY-SA navedi autora, izvor i odgovarajuću licencu na sajtu. Ime datoteke ne predstavlja atribuciju.
+
+### Izvori koordinata za trenutnih 11 staza
+
+Koordinate su proverene na stranicama konkretnih staza (uglavnom Vikipedija), uključujući zvanični sajt Monce: [Albert Park](https://en.wikipedia.org/wiki/Albert_Park_Circuit), [Bahrein](https://en.wikipedia.org/wiki/Bahrain_International_Circuit), [Džeda](https://en.wikipedia.org/wiki/Jeddah_Corniche_Circuit), [Hungaroring](https://en.wikipedia.org/wiki/Hungaroring), [Lusail](https://en.wikipedia.org/wiki/Lusail_International_Circuit), [Majami](https://en.wikipedia.org/wiki/Miami_International_Autodrome), [Monca](https://www.monzanet.it/en/circuit/), [Red Bull Ring](https://en.wikipedia.org/wiki/Red_Bull_Ring), [Spa](https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps), [Suzuka](https://en.wikipedia.org/wiki/Suzuka_Circuit), [Šangaj](https://en.wikipedia.org/wiki/Shanghai_International_Circuit).
+
 ## Dodavanje trke
 
 Otvori `/urednik.html` na sajtu:
