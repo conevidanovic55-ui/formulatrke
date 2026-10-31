@@ -7,7 +7,7 @@
 .arrow-icon{display:inline-block;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;vertical-align:middle;flex-shrink:0}.button .arrow-icon{margin-left:22px;width:17px;height:17px}.header-cta .arrow-icon{width:18px;height:18px}.card-arrow .arrow-icon{width:16px;height:16px}.arrow-down .arrow-icon{transform:rotate(180deg)}.ticker span{font-family:'DejaVu Sans',sans-serif;font-variant-emoji:text}.skip-link:not(:focus-visible){clip-path:inset(50%);height:1px;width:1px;overflow:hidden;padding:0;top:-100px}.skip-link:focus-visible{top:10px}
 
 /* Formulacija palette: deep red, black and white, from the supplied profile reference. */
-.hero::before{content:'';position:absolute;inset:0;background:url('./assets/hero.png') 50% 56%/cover;filter:grayscale(1) contrast(1.14);mix-blend-mode:luminosity;opacity:.65;z-index:-2}
+.hero::before{content:'';position:absolute;inset:0;background:var(--hero-image,url('./assets/hero.png')) 50% 56%/cover;filter:saturate(.88) contrast(1.12);opacity:.88;z-index:-2}
 .hero-shade{background:linear-gradient(90deg,#140000f5,#390000b5 48%,#94000035),linear-gradient(0deg,#190000ee,transparent 45%)}
 .hero h1 em{color:#ff4b4b}.hero .eyebrow{color:#ffdcdc}.site-header{border-bottom:1px solid #501010;background:#100606}
 .brand{font-style:italic;letter-spacing:-.9px;font-weight:900}.brand-symbol{display:none}
@@ -48,3 +48,6 @@
   .site-header nav a:first-child { display: flex; }
   .site-header nav { margin-left: auto; }
 }
+
+/* Bez laznih koordinata dok se fotografija ucitava ili ako nije dostupna. */
+.hero-caption #hero-track-coordinates:empty{display:none}
