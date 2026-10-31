@@ -28,3 +28,23 @@
 
 /* Podnozje bez duplog logotipa: drustvene mreze ostaju desno. */
 .site-footer .footer-main { justify-content: flex-end; }
+
+/* Logo u zaglavlju: originalni PNG je kvadratan sa velikim marginama.
+   Cover odseca prazne ivice umesto da dodatno smanjuje natpis. */
+.site-header { min-height: 112px; }
+.site-header .brand-logo {
+  width: 330px;
+  height: 108px;
+  object-fit: cover;
+  object-position: center;
+}
+@media (max-width: 1000px) {
+  .site-header { min-height: 96px; }
+  .site-header .brand-logo { width: 278px; height: 92px; }
+}
+@media (max-width: 700px) {
+  .site-header { min-height: 82px; }
+  .site-header .brand-logo { width: clamp(165px, 60vw, 216px); height: 72px; }
+  .site-header nav a:first-child { display: flex; }
+  .site-header nav { margin-left: auto; }
+}
