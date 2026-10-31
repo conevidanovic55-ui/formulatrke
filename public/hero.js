@@ -3,10 +3,11 @@ import { chooseHeroTrack } from './lib/hero.js';
 const hero = document.querySelector('.hero');
 const trackName = document.querySelector('#hero-track-name');
 const trackCoordinates = document.querySelector('#hero-track-coordinates');
+const trackCaption = document.querySelector('.hero-caption');
 const STORAGE_KEY = 'formulacija-poslednja-hero-staza';
 
 async function showRandomHero() {
-  if (!hero || !trackName || !trackCoordinates) return;
+  if (!hero || !trackName || !trackCoordinates || !trackCaption) return;
 
   try {
     const response = await fetch('./staze.json', { cache: 'no-store' });
@@ -31,10 +32,11 @@ async function showRandomHero() {
         await preview.decode();
 
         // Slika i koordinate menjaju se zajedno tek kad je slika ucitana.
-        hero.style.setProperty('--hero-image', `url("${imageUrl}")`);
-        hero.dataset.trackImage = selected.image;
         trackName.textContent = selected.name;
         trackCoordinates.textContent = selected.coordinates;
+        hero.style.setProperty('--hero-image', `url("${imageUrl}")`);
+        hero.dataset.trackImage = selected.image;
+        trackCaption.hidden = false;
         try { sessionStorage.setItem(STORAGE_KEY, selected.image); }
         catch { /* Privatni rezim moze blokirati sessionStorage. */ }
         return;
